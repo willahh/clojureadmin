@@ -2,12 +2,19 @@
   (:require [my-webapp.db :as db]
             [clojure.string :as str]
             [hiccup.page :as page]
-            [ring.util.anti-forgery :as util]))
+            [hiccup.core :as core]
+            [ring.util.anti-forgery :as util]
+            [net.cgrand.enlive-html :as html]))
+
 
 (defn gen-page-head
   [title]
   [:head
    [:title (str "Locations: " title)]
+   (page/include-css "/lib/bootstrap-4.0.0-beta-dist/css/bootstrap.min.css")
+   (page/include-js "/lib/jquery-3.2.1/jquery-3.2.1.min.js") 
+   (page/include-js "/lib/popper/popper.min.js") 
+   (page/include-js "/lib/bootstrap-4.0.0-beta-dist/js/bootstrap.min.js") 
    (page/include-css "/css/styles.css")])
 
 (def header-links
@@ -20,13 +27,34 @@
    [:a {:href "/all-locations"} "View All Locations"]
    " ]"])
 
+(defn main-navbar
+  []
+  [:nav {:class "navbar navbar-expand-lg navbar-light bg-light"}
+   [:a.navbar-brand {:href "#"}]
+   [:button.navbar-toggler {:type "button" :data-toggle "collapse" :data-target "#navbarSupportedContent"}
+    [:span.navbar-toggler-icon]]
+   [:div#navbarSupportedContent {:class "collapse navbar-collapse"}
+    [:ul {:class "navbar-nav mr-auto"}
+     [:li {:class "nav-item active"}
+      [:a.nav-link {:href "#"} "Home" [:span.sr-only "(current)"]]]
+     [:li {:class "nav-item"}
+      [:a.nav-link {:href "#"} "Link"]]
+     [:li {:class "nav-item"}
+      [:a {:class "nav-link disabled " :href "#"} "Disabled"]]
+     ]
+    [:form {:class "form-inline my-2 my-lg-0"}
+     [:input {:class "form-control mr-sm-2" :type "text" :placeholder "Search"}]
+     [:button {:class "btn btn-outline-succes my-2 my-sm-0" :type "submit"} "Submit"]]]])
+
 (defn home-page
   []
   (page/html5
    (gen-page-head "Home")
+   (main-navbar)
    header-links
-   [:h1 "Home"]
-   [:p "Webapp to store and display some 2D (x,y) locations."]))
+   [:div.container
+    [:h1 "Home"]
+    [:p "Webapp to store and display some 2D (x,y) locations."]]))
 
 (defn add-location-page
   []
