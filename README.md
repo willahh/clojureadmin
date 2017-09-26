@@ -1,6 +1,6 @@
-# my-webapp
+# Clojure Admin
+A web interface to administrate various data in Clojure 
 
-FIXME
 
 ## Prerequisites
 
@@ -16,4 +16,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © 2017 FIXME
+© Don't give a fuck 2017
