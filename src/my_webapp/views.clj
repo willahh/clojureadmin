@@ -3,8 +3,7 @@
             [clojure.string :as str]
             [hiccup.page :as page]
             [hiccup.core :as core]
-            [ring.util.anti-forgery :as util]
-            [net.cgrand.enlive-html :as html]))
+            [ring.util.anti-forgery :as util]))
 
 
 (defn gen-page-head

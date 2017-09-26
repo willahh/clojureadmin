@@ -9,7 +9,8 @@
                  [org.clojure/java.jdbc "0.7.1"]
                  [com.h2database/h2 "1.4.193"]
                  [mysql/mysql-connector-java "5.1.18"]
-                 [enlive "1.1.6"]]
+                 [org.clojure/clojurescript "1.9.229"]
+                 [lein-figwheel "0.5.13"]]
   :plugins [[lein-ring "0.9.7"]]
   ;; :main "my-webadpp.handler"
   :ring {:handler my-webapp.handler/app}
