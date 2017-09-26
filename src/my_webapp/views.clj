@@ -36,11 +36,11 @@
    [:div#navbarSupportedContent {:class "collapse navbar-collapse"}
     [:ul {:class "navbar-nav mr-auto"}
      [:li {:class "nav-item active"}
-      [:a.nav-link {:href "#"} "Home" [:span.sr-only "(current)"]]]
+      [:a.nav-link {:href "/"} "Home" [:span.sr-only "(current)"]]]
      [:li {:class "nav-item"}
-      [:a.nav-link {:href "#"} "Link"]]
+      [:a.nav-link {:href "/add-location"} "Add location"]]
      [:li {:class "nav-item"}
-      [:a {:class "nav-link disabled " :href "#"} "Disabled"]]
+      [:a {:class "nav-link" :href "/all-locations"} "All locations"]]
      ]
     [:form {:class "form-inline my-2 my-lg-0"}
      [:input {:class "form-control mr-sm-2" :type "text" :placeholder "Search"}]
@@ -51,7 +51,6 @@
   (page/html5
    (gen-page-head "Home")
    (main-navbar)
-   header-links
    [:div.container
     [:h1 "Home"]
     [:p "Webapp to store and display some 2D (x,y) locations."]]))
@@ -60,7 +59,7 @@
   []
   (page/html5
    (gen-page-head "Add a Location")
-   header-links
+   (main-navbar)
    [:h1 "Add a Location"]
    [:form {:action "/add-location" :method "POST"}
     (util/anti-forgery-field)
@@ -73,7 +72,7 @@
   (let [id (db/add-location-to-db x y)]
     (page/html5
      (gen-page-head "Added a Location")
-     header-links
+     (main-navbar)
      [:h1 "Added a Location"]
      [:p "Added [" x ", " y "] (id: " id ") to the db. "
       [:a {:href (str "/location/" id)} "See for yourself"]
@@ -84,7 +83,7 @@
   (let [{x :x y :y} (db/get-xy loc-id)]
     (page/html5
      (gen-page-head (str "Location " loc-id))
-     header-links
+     (main-navbar)
      [:h1 "A Single Location"]
      [:p "id: " loc-id]
      [:p "x: " x]
@@ -95,7 +94,7 @@
   (let [all-locs (db/get-all-locations)]
     (page/html5
      (gen-page-head "All Locations in the db")
-     header-links
+     (main-navbar)
      [:h1 "All Locations"]
      [:table
       [:tr [:th "id"] [:th "x"] [:th "y"]]
