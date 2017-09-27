@@ -109,11 +109,11 @@
     (page/html5
      (gen-page-head "All Locations in the db")
      (main-navbar)
-     [:h1 "All Locations"]
-     [:p {:class "yo"} "ok2"]
-     [:table {:class "table"}
-      [:tr [:th "id"] [:th "x"] [:th "y"]]
-      (for [loc all-locs]
-        [:tr [:td (:id loc)] [:td (:x loc)] [:td (:y loc)]])])))
+     [:div {:class "container"}
+      [:h1 "All Locations"]
+      [:table {:class "table table-bordered table-striped"}
+       [:thead {:class "thead-inverse"} [:tr [:th "id"] [:th "x"] [:th "y"]]]
+       (for [loc all-locs]
+         [:tr [:td (:id loc)] [:td (:x loc)] [:td (:y loc)]])]])))
 
 
