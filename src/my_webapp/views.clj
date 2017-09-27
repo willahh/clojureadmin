@@ -5,7 +5,6 @@
             [hiccup.core :as core]
             [ring.util.anti-forgery :as util]))
 
-
 (defn gen-page-head
   [title]
   [:head
@@ -15,6 +14,7 @@
    (page/include-js "/lib/popper/popper.min.js") 
    (page/include-js "/lib/bootstrap-4.0.0-beta-dist/js/bootstrap.min.js") 
    (page/include-css "/css/styles.css")])
+
 
 (def header-links
   [:div#header-links
@@ -79,25 +79,41 @@
 
 (defn location-page
   [loc-id]
-  (let [{x :x y :y} (db/get-xy loc-id)]
+  (let [
+        {x :x y :y} (db/get-xy loc-id)
+        row (first (db/get-location-from-id loc-id))
+        ]
     (page/html5
      (gen-page-head (str "Location " loc-id))
      (main-navbar)
+     [:table {:class "table"}
+      [:thead
+       [:tr
+        [:th "id"]
+        [:th "x"]
+        [:th "y"]]]
+      [:tbody
+       [:tr
+        [:th loc-id]
+        [:th "a"]
+        [:th "y"]]]]
      [:h1 "A Single Location"]
-     [:p "id: " loc-id]
-     [:p "x: " x]
-     [:p "y: " y])))
+     
+     [:p "id: "(:id row)]
+     [:p "x: " (:x row)]
+     [:p "y: " (:y row)])))
 
-(defn all-location-page
+(defn all-locations-page
   []
   (let [all-locs (db/get-all-locations)]
     (page/html5
      (gen-page-head "All Locations in the db")
      (main-navbar)
      [:h1 "All Locations"]
-     [:table
+     [:p {:class "yo"} "ok2"]
+     [:table {:class "table"}
       [:tr [:th "id"] [:th "x"] [:th "y"]]
       (for [loc all-locs]
-        [:tr [:td (:d loc)] [:td (:x loc)] [:td (:y loc)]])])))
+        [:tr [:td (:id loc)] [:td (:x loc)] [:td (:y loc)]])])))
 
 

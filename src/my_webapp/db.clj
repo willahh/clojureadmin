@@ -20,6 +20,13 @@
   []
   (jdbc/query db-spec "select id, x, y from locations"))
 
+(defn get-location-from-id
+  [location-id]
+  (jdbc/query db-spec ["select * from locations where id = ?" location-id]))
+
+
+
+
 
 
 

@@ -23,7 +23,7 @@
        (views/location-page loc-id))
   (GET "/all-locations"
        []
-       (views/all-location-page))
+       (views/all-locations-page))
   (route/resources "/")
   (route/not-found "Not Found"))
 
