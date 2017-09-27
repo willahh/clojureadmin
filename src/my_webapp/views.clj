@@ -19,12 +19,9 @@
 (def header-links
   [:div#header-links
    "[ "
-   [:a {:href "/"} "Home"]
-   " | "
-   [:a {:href "/add-location"} "Add a Location"]
-   " | "
-   [:a {:href "/all-locations"} "View All Locations"]
-   " ]"])
+   [:a {:href "/"} "Home"]" | "
+   [:a {:href "/add-location"} "Add a Location"] " | "
+   [:a {:href "/all-locations"} "View All Locations"]" ]"])
 
 (defn main-navbar
   []
@@ -66,16 +63,43 @@
     [:p "y value: " [:input {:type "text" :name "y"}]]
     [:p [:input {:type "submit" :value "submit location"}]]]))
 
+;; (defn add-location-results-page
+;;   [{:keys [x y]}]
+;;   (let [id (db/add-location-to-db x y)]
+;;     (page/html5
+;;      (gen-page-head "Added a Location")
+;;      (main-navbar)
+;;      [:h1 "Added a Location"]
+;;      [:p "Added [" x ", " y "] (id: " id ") to the db. "
+;;       [:a {:href (str "/location/" id)} "See for yourself"]
+;;       "."])))
 (defn add-location-results-page
   [{:keys [x y]}]
-  (let [id (db/add-location-to-db x y)]
-    (page/html5
-     (gen-page-head "Added a Location")
-     (main-navbar)
-     [:h1 "Added a Location"]
-     [:p "Added [" x ", " y "] (id: " id ") to the db. "
-      [:a {:href (str "/location/" id)} "See for yourself"]
-      "."])))
+  (page/html5
+   (gen-page-head "Added a Location")
+   (main-navbar)
+   
+   [:div.container
+    [:h1 "Added a Location"]
+    [:form {:action "/add-location/save" :method "post"}
+     [:div {:class "form-group"}
+      [:label "Field x:"]
+      [:input {:type "text" :name "x"}]]
+     [:div {:class "form-group"}
+      [:label "Field y:"]
+      [:input {:type "text" :name "y"}]]
+     [:div {:class "form-group"}
+      [:button {:class "btn btn-primary" :type "submit"} "Validate"]]]]))
+
+(defn add-location-save
+  [{:keys [x y]}]
+  (page/html5
+   (gen-page-head "Added a Location")
+   (main-navbar)
+   
+   [:div.container
+    [:h1 "Added a Location"]
+    [:div "x:" x]]))
 
 (defn location-page
   [loc-id]

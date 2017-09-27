@@ -15,21 +15,22 @@
   (GET "/add-location"
        {params :params}
        (views/add-location-results-page params))
-  (POST "/add-location"
-        {params :params}
-        (views/add-location-results-page params))
   (GET "/location/:loc-id"
        [loc-id]
        (views/location-page loc-id))
   (GET "/all-locations"
        []
        (views/all-locations-page))
+    (GET "/add-location/save"
+       {params :params}
+       (views/add-location-save params))
   (route/resources "/")
   (route/not-found "Not Found"))
 
 
 (def app
-  (wrap-defaults app-routes site-defaults))
+  ;; (wrap-defaults app-routes site-defaults)
+  app-routes)
 
 ;; (defn -main
 ;;   [& [port]]
